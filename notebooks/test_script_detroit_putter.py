@@ -37,6 +37,10 @@ print(f"Found {len(putters)} products\n")
 #         continue
 
 
+putter_name = []
+putter_price = []
+putter_link = []
+
 for index in range(len(putters)):
     try:
         print(f"Processing putter {index + 1}/{len(putters)}...")
@@ -47,15 +51,21 @@ for index in range(len(putters)):
         putter = putters[index]
         
         card_info = putter.find_element(By.CSS_SELECTOR, "div.card__information")
+
+        # Name information
         name_element = card_info.find_element(By.CSS_SELECTOR, "h3 a.full-unstyled-link")
         name = name_element.get_attribute('textContent').strip()
+        putter_name.append(name)
+
         
         price_element = putter.find_element(By.CSS_SELECTOR, "span.price-item--regular")
         price = price_element.get_attribute('textContent').strip()
+        putter_price.append(price)
         
         # Get the product link
         product_link = name_element.get_attribute('href')
-        
+        putter_link.append(product_link)
+
         print(f"Name: {name}")
         print(f"Price: {price}")
         print(f"Link: {product_link}")
@@ -63,7 +73,7 @@ for index in range(len(putters)):
         
         # Click into the product page
         driver.get(product_link)
-        time.sleep(3)  # Wait for page to load
+        time.sleep(2)  # Wait for page to load
         
         # NOW WE'RE ON THE PRODUCT PAGE - scrape detailed info
         print(f"Current URL: {driver.current_url}")
