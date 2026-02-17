@@ -78,6 +78,8 @@ for index in range(len(putters)):
         # NOW WE'RE ON THE PRODUCT PAGE - scrape detailed info
         print(f"Current URL: {driver.current_url}")
 
+        ## TODO: Look at inspect element to see what can be pulled
+
 
 
         ## Returnig to the listing page
@@ -99,3 +101,7 @@ for index in range(len(putters)):
 driver.close()
 
 
+
+
+# TODO: Create similar feature but for accessories
+# TODO: Create a class that will handle pulling for putters and accessories
