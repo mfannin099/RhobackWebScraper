@@ -12,25 +12,27 @@ driver.get("https://detroitputterco.com/")
 driver.get("https://detroitputterco.com/collections/our-putters")
 time.sleep(1) 
 
-product_list = driver.find_element(By.CSS_SELECTOR, "ul#Slider-template--16677983912180__86207359-2a79-492b-b434-6794b1dff016")
-products = product_list.find_elements(By.CSS_SELECTOR, "li.grid__item")
-print(f"Found {len(products)} products\n")
+putter_list = driver.find_element(By.CSS_SELECTOR, "ul#Slider-template--16677983912180__86207359-2a79-492b-b434-6794b1dff016")
+putters = putter_list.find_elements(By.CSS_SELECTOR, "li.grid__item")
+print(f"Found {len(putters)} products\n")
 
-# for product in products:
-#     try:
-#         # The div you're looking for is the second child div inside each product
-#         # li > div > div > div:nth-child(2)
-#         target_div = product.find_element(By.CSS_SELECTOR, "div > div > div:nth-child(2)")
+for putter in putters:
+    try:
+        card_info = putter.find_element(By.CSS_SELECTOR, "div.card__information")
+
+        name_element = card_info.find_element(By.CSS_SELECTOR, "h3 a.full-unstyled-link")
+        name = name_element.get_attribute('textContent').strip()
         
-#         # Get all the text from that div
-#         product_info = target_div.text
-        
-#         print(product_info)
-#         print("-" * 50)
-        
-#     except Exception as e:
-#         print(f"Error extracting product: {e}")
-#         continue
+
+        price_element = putter.find_element(By.CSS_SELECTOR, "span.price-item--regular")
+        price = price_element.get_attribute('textContent').strip()
+
+        print(name)
+        print(price)
+
+    except Exception as e:
+        print(f"Error extracting putter: {e}")
+        continue
 
 driver.close()
 
